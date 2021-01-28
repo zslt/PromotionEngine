@@ -6,6 +6,6 @@ namespace PromotionEngine.Library
 {
     public interface IPromotionRepository
     {
-        IList<Promotion> GetPromotions(IList<Product> products);
+        IList<Promotion> GetPromotions(IEnumerable<Product> products);
     }
 }

@@ -25,7 +25,7 @@ namespace PromotionEngine.Library
 
             var discountableProducts = products
                 .Select(x => new DiscountableProduct(x.Sku, x.Price))
-                .Tolist();
+                .ToList();
 
             return relevantPromotions.Sum(x => x.Apply(discountableProducts))
                 + discountableProducts.Where(x => !x.Discounted).Sum(x => x.Price);

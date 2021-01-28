@@ -14,7 +14,7 @@ namespace PromotionEngine.Library
             this.promotions = promotions ?? throw new ArgumentNullException(nameof(promotions));
         }
 
-        public IList<Promotion> GetPromotions(IList<Product> products)
+        public IList<Promotion> GetPromotions(IEnumerable<Product> products)
         {
             if (products is null)
             {

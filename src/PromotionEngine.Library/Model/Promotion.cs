@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace PromotionEngine.Library.Model
 {
@@ -9,10 +10,10 @@ namespace PromotionEngine.Library.Model
 
         public IDictionary<Product, int> DiscountedProducts { get; }
 
-        public Promotion(Rule rule, IDictionary<Product, int> discountedProducts)
+        public Promotion(IDictionary<Product, int> discountedProducts, Rule rule)
         {
-            this.rule = rule ?? throw new ArgumentNullException(nameof(rule));
             DiscountedProducts = discountedProducts ?? throw new ArgumentNullException(nameof(discountedProducts));
+            this.rule = rule ?? throw new ArgumentNullException(nameof(rule));
         }
 
         internal double Apply(IList<DiscountableProduct> products)
@@ -25,7 +26,7 @@ namespace PromotionEngine.Library.Model
             var originalQuantityPerProduct = products
                 .Where(x => !x.Discounted)
                 .GroupBy(x => x)
-                .ToDictionary(x => x.Key, x => x.Count());
+                .ToDictionary(x => x.Key as Product, x => x.Count());
 
             var ruleApplicationNumber = DiscountedProducts
                 .All(x => originalQuantityPerProduct.ContainsKey(x.Key))
@@ -33,16 +34,16 @@ namespace PromotionEngine.Library.Model
                 : 0;
 
             var dicountedQunatityPerProduct = DiscountedProducts
-                .ToDictionary(x => x.Key, x => x.Value * ruleApplicationNumber);
+                .ToDictionary(x => x.Key as Product, x => x.Value * ruleApplicationNumber);
 
             foreach (var product in products)
             {
                 if (!product.Discounted
-                    && dicountedQunatityPerProduct.ContainsKey(prod)
-                    && dicountedQunatityPerProduct[prod] > 0)
+                    && dicountedQunatityPerProduct.ContainsKey(product)
+                    && dicountedQunatityPerProduct[product] > 0)
                 {
                     product.Discounted = true;
-                    dicountedQunatityPerProduct[prod] += 1;
+                    dicountedQunatityPerProduct[product] -= 1;
                 }
             }
 

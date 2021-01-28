@@ -1,109 +1,153 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
 using NUnit.Framework;
+using PromotionEngine.Library;
+using PromotionEngine.Library.Model;
 
 namespace PromotionEngine.Library.Tests
 {
     public class Tests
     {
-        [SetUp]
-        public void Setup()
-        {
-        }
-
         [Test]
         public void Three_identical_products_in_one_promotion()
         {
-            //Unit price for SKU IDs            
-            //A 50
-            //B 30
-            //C 20
-            //D 15
+            // Arrange
+            var promotion1 = new Promotion(
+                new Dictionary<Product, int>()
+                {
+                    { new Product("A", 50), 3 }
+                },
+                new Rule(Operation.Subtract, 20));
+            var promotion2 = new Promotion(
+                new Dictionary<Product, int>()
+                {
+                    { new Product("B", 30), 2 }
+                },
+                new Rule(Operation.Subtract, 15));
+            var promotion3 = new Promotion(
+                new Dictionary<Product, int>()
+                {
+                    { new Product("C", 20), 1 },
+                    { new Product("D", 15), 1 }
+                },
+                new Rule(Operation.Subtract, 5));
 
-            //Active Promotions
-            //3 of A for 130
-            //2 of B for 45
-            //C and D for 30
+            var promotionRepository = new InMemoryPromotionRepository(
+                new List<Promotion>() {promotion1, promotion2, promotion3});
             
-            //Scenario A
-            //1 * A 50
-            //1 * B 30
-            //1 * C 20
+            var promotionEngine = new PromotionEngine(promotionRepository);
 
-            // Assert 100
-            
-            Assert.Pass();
+            // Act
+            var result = promotionEngine.ApplyPromotions(
+                new List<Product>()
+                {
+                    new Product("A", 50),
+                    new Product("B", 30),
+                    new Product("C", 20)
+                });
+
+            // Assert
+            Assert.AreEqual(100, result);
         }
 
         [Test]
-        public void Three_identical_products_in_one_promotion()
+        public void Identical_products_in_one_promotion_mulitple_times()
         {
-            //Unit price for SKU IDs            
-            //A 50
-            //B 30
-            //C 20
-            //D 15
+            // Arrange
+            var promotion1 = new Promotion(
+                new Dictionary<Product, int>()
+                {
+                    { new Product("A", 50), 3 }
+                },
+                new Rule(Operation.Subtract, 20));
+            var promotion2 = new Promotion(
+                new Dictionary<Product, int>()
+                {
+                    { new Product("B", 30), 2 }
+                },
+                new Rule(Operation.Subtract, 15));
+            var promotion3 = new Promotion(
+                new Dictionary<Product, int>()
+                {
+                    { new Product("C", 20), 1 },
+                    { new Product("D", 15), 1 }
+                },
+                new Rule(Operation.Subtract, 5));
 
-            //Active Promotions
-            //3 of A for 130
-            //2 of B for 45
-            //C and D for 30
+            var promotionRepository = new InMemoryPromotionRepository(
+                new List<Promotion>() {promotion1, promotion2, promotion3});
             
-            //Scenario B
-            //5 * A 130 + 2*50
-            //5 * B 45 + 45 + 30
-            //1 * C 28
+            var promotionEngine = new PromotionEngine(promotionRepository);
 
-            // Assert 370
-            
-            Assert.Pass();
-        }
+            // Act
+            var result = promotionEngine.ApplyPromotions(
+                new List<Product>()
+                {
+                    new Product("A", 50),
+                    new Product("A", 50),
+                    new Product("A", 50),
+                    new Product("A", 50),
+                    new Product("A", 50),
+                    new Product("B", 30),
+                    new Product("B", 30),
+                    new Product("B", 30),
+                    new Product("B", 30),
+                    new Product("B", 30),
+                    new Product("C", 20)
+                });
 
-        [Test]
-        public void Two_identical_products_in_one_promotion()
-        {
-            //Unit price for SKU IDs            
-            //A 50
-            //B 30
-            //C 20
-            //D 15
-
-            //Active Promotions
-            //3 of A for 130
-            //2 of B for 45
-            //C and D for 30
-            
-            //Scenario A
-            //1 * A 50
-            //1 * B 30
-            //1 * C 20
-
-            // Assert 100
-            
-            Assert.Pass();
+            // Assert
+            Assert.AreEqual(370, result);
         }
 
         [Test]
         public void Two_different_products_in_one_promotion()
         {
-            //Unit price for SKU IDs            
-            //A 50
-            //B 30
-            //C 20
-            //D 15
+            // Arrange
+            var promotion1 = new Promotion(
+                new Dictionary<Product, int>()
+                {
+                    { new Product("A", 50), 3 }
+                },
+                new Rule(Operation.Subtract, 20));
+            var promotion2 = new Promotion(
+                new Dictionary<Product, int>()
+                {
+                    { new Product("B", 30), 2 }
+                },
+                new Rule(Operation.Subtract, 15));
+            var promotion3 = new Promotion(
+                new Dictionary<Product, int>()
+                {
+                    { new Product("C", 20), 1 },
+                    { new Product("D", 15), 1 }
+                },
+                new Rule(Operation.Subtract, 5));
 
-            //Active Promotions
-            //3 of A for 130
-            //2 of B for 45
-            //C and D for 30
+            var promotionRepository = new InMemoryPromotionRepository(
+                new List<Promotion>() {promotion1, promotion2, promotion3});
             
-            //Scenario C
-            //3 * A 130
-            //5 * B 45 + 45 + 1 * 30
-            //1 * C -
-            //1 * D 30
+            var promotionEngine = new PromotionEngine(promotionRepository);
 
-            // Assert 380
-            
-            Assert.Pass();
+            // Act
+            var result = promotionEngine.ApplyPromotions(
+                new List<Product>()
+                {
+                    new Product("A", 50),
+                    new Product("A", 50),
+                    new Product("A", 50),
+                    new Product("B", 30),
+                    new Product("B", 30),
+                    new Product("B", 30),
+                    new Product("B", 30),
+                    new Product("B", 30),
+                    new Product("C", 20),
+                    new Product("D", 15)
+                });
+
+            // Assert
+            Assert.AreEqual(280, result);
         }
     }
 }

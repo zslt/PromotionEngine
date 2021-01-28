@@ -22,6 +22,6 @@ namespace PromotionEngine.Library.Model
         public static bool operator ==(Product x, Product y) =>
             x.Sku == y.Sku && x.Price == y.Price;
         
-        public static bool operator !=(Product x, Product y) => !(x = y);
+        public static bool operator !=(Product x, Product y) => !(x == y);
     }
 }
