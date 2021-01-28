@@ -13,10 +13,11 @@ namespace PromotionEngine.Library.Model
             this.value = value;
         }
 
-        public double Apply(double amount, int applicatonNumber) => operation switch
+        internal double Apply(double amount, int applicatonNumber) => operation switch
         {
             Operation.Subtract => applicatonNumber * (amount - value),
             Operation.Multiply => applicatonNumber * (amount * value),
+            _ => throw new InvalidOperationException()
         };
     }
 }

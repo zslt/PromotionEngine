@@ -8,7 +8,7 @@ namespace PromotionEngine.Library.Model
     {
         private readonly Rule rule;        
 
-        public IDictionary<Product, int> DiscountedProducts { get; }
+        internal IDictionary<Product, int> DiscountedProducts { get; }
 
         public Promotion(IDictionary<Product, int> discountedProducts, Rule rule)
         {
@@ -33,9 +33,19 @@ namespace PromotionEngine.Library.Model
                 ? DiscountedProducts.Select(x => originalQuantityPerProduct[x.Key] / x.Value).Min()
                 : 0;
 
-            var dicountedQunatityPerProduct = DiscountedProducts
-                .ToDictionary(x => x.Key as Product, x => x.Value * ruleApplicationNumber);
+            FlagDiscountedProducts(DiscountedProducts
+                .ToDictionary(x => x.Key as Product, x => x.Value * ruleApplicationNumber),
+                products);
 
+            return rule.Apply(
+                DiscountedProducts.Select(x => x.Key.Price * x.Value).Sum(),
+                ruleApplicationNumber);
+        }
+
+        private void FlagDiscountedProducts(
+            Dictionary<Product, int> dicountedQunatityPerProduct,
+            IList<DiscountableProduct> products)
+        {
             foreach (var product in products)
             {
                 if (!product.Discounted
@@ -46,10 +56,6 @@ namespace PromotionEngine.Library.Model
                     dicountedQunatityPerProduct[product] -= 1;
                 }
             }
-
-            return rule.Apply(
-                DiscountedProducts.Select(x => x.Key.Price * x.Value).Sum(),
-                ruleApplicationNumber);
         }
     }
 }
