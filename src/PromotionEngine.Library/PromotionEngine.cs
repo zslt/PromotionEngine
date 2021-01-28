@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using PromotionEngine.Library.Model;
 
@@ -13,6 +14,21 @@ namespace PromotionEngine.Library
             this.promotionRepository = promtionRepositoy ?? throw new ArgumentNullException(nameof(promtionRepositoy));
         }
 
-        double ApplyPromotions(IList<Product> products) => 0;
+        public double ApplyPromotions(IEnumerable<Product> products)
+        {
+            if (products is null)
+            {
+                throw new ArgumentNullException(nameof(products));
+            }
+
+            var relevantPromotions = promotionRepository.GetPromotions(products);
+
+            var discountableProducts = products
+                .Select(x => new DiscountableProduct(x.Sku, x.Price))
+                .Tolist();
+
+            return relevantPromotions.Sum(x => x.Apply(discountableProducts))
+                + discountableProducts.Where(x => !x.Discounted).Sum(x => x.Price);
+        }
     }
 }
