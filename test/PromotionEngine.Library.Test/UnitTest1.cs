@@ -1,6 +1,6 @@
 using NUnit.Framework;
 
-namespace PromotionEngine.BLL.Tests
+namespace PromotionEngine.Library.Tests
 {
     public class Tests
     {
