@@ -1,13 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace PromotionEngine.Library
 {
     public interface IPromotionEngine
     {
-        //promotions
-
-        //rule (inteface?)
-
-        //apply promotions
+        double ApplyPromotions(IList<Product> products);
     }
 }
