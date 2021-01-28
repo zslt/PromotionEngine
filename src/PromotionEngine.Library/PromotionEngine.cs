@@ -21,6 +21,11 @@ namespace PromotionEngine.Library
                 throw new ArgumentNullException(nameof(products));
             }
 
+            if (!products.Any())
+            {
+                throw new ArgumentException(nameof(products));
+            }
+
             var relevantPromotions = promotionRepository.GetPromotions(products);
 
             var discountableProducts = products
