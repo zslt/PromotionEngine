@@ -22,7 +22,7 @@ namespace PromotionEngine.Library
             }
 
             return promotions
-                .Where(x => products.Any(y => x.DiscountableProducts.ContainsKey(y)))
+                .Where(x => products.Any(y => x.DiscountedProducts.ContainsKey(y)))
                 .ToList();
         }
     }
