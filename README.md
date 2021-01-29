@@ -10,17 +10,17 @@ This is a .NET 5.0 promotion enginge library.
 
 The main logic PromotionEngine (implenting the IPromotionEngine) is under the namesapce PromotionEngine.Library (implenting the IPromotionEngine).
 
-Instatiation:
-Parameters:
+Instatiation:<br />
+Parameters:<br />
     IPromotionRepository (the IPromotionRepository implementaion has to return Promotion instances for an input or Product instances)
 ```
 var promotionEngine = new PromotionEngine(promotionRepository);
 ```
-Usage:
-Parameters:
-    IEnumerable<Product>
-Returns: double (the discounted price part of the total cart price)
-Example:
+Usage:<br />
+Parameters:<br />
+    IEnumerable<Product><br />
+Returns: double (the discounted price part of the total cart price)<br />
+Example:<br />
 ```
 var result = promotionEngine.ApplyPromotions(
             new List<Product>()
@@ -31,19 +31,19 @@ var result = promotionEngine.ApplyPromotions(
 
 ## Models
 
-Promotion
-Parameters:
-    string sku
-    double price
-Example:
+Promotion<br />
+Parameters:<br />
+    string sku<br />
+    double price<br />
+Example:<br />
 ```
 new Product("A", 50)
 ```
 
-Promotion
-Parameters:
-    IDictionary<Product>
-    Rule
+Promotion<br />
+Parameters:<br />
+    IDictionary<Product><br />
+    Rule<br />
 Example:
 ```
 new Promotion(
@@ -54,10 +54,10 @@ new Promotion(
                 new Rule(Operation.Subtract, 20));
 ```
 
-Rule
-Parameters:
-    Operation
-Example:
+Rule<br />
+Parameters:<br />
+    Operation<br />
+Example:<br />
 ```
 new Rule(Operation.Subtract, 20)
 ```
