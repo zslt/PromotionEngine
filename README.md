@@ -18,7 +18,7 @@ var promotionEngine = new PromotionEngine(promotionRepository);
 ```
 Usage:<br />
 Parameters:<br />
-&nbsp;&nbsp;&nbsp;IEnumerable<Product><br />
+&nbsp;&nbsp;&nbsp;IEnumerable\<Product\><br />
 Returns: double (the discounted price part of the total cart price)<br />
 Example:<br />
 ```
@@ -42,7 +42,7 @@ new Product("A", 50)
 
 Promotion<br />
 Parameters:<br />
-&nbsp;&nbsp;&nbsp;IDictionary<Product><br />
+&nbsp;&nbsp;&nbsp;IDictionary\<Product\><br />
 &nbsp;&nbsp;&nbsp;Rule<br />
 Example:
 ```
