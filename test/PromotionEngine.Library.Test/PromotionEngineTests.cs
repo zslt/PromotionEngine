@@ -7,7 +7,7 @@ using PromotionEngine.Library.Model;
 
 namespace PromotionEngine.Library.Tests
 {
-    public class Tests
+    public class PromotionEngineTests
     {
         [Test]
         public void Three_identical_products_in_one_promotion()
@@ -148,6 +148,62 @@ namespace PromotionEngine.Library.Tests
 
             // Assert
             Assert.AreEqual(280, result);
+        }
+
+        [Test]
+        public void No_promotion_found_for_products()
+        {
+            // Arrange
+            var promotion = new Promotion(
+                new Dictionary<Product, int>()
+                {
+                    { new Product("A", 50), 3 }
+                },
+                new Rule(Operation.Subtract, 20));
+
+            var promotionRepository = new InMemoryPromotionRepository(
+                new List<Promotion>() {promotion });
+            
+            var promotionEngine = new PromotionEngine(promotionRepository);
+
+            // Act
+            var result = promotionEngine.ApplyPromotions(
+                new List<Product>()
+                {
+                    new Product("B", 30),
+                });
+
+            // Assert
+            Assert.AreEqual(30, result);
+        }
+
+        [Test]
+        public void All_products_discounted()
+        {
+            // Arrange
+            var promotion = new Promotion(
+                new Dictionary<Product, int>()
+                {
+                    { new Product("A", 50), 3 }
+                },
+                new Rule(Operation.Subtract, 20));
+
+            var promotionRepository = new InMemoryPromotionRepository(
+                new List<Promotion>() {promotion });
+            
+            var promotionEngine = new PromotionEngine(promotionRepository);
+
+            // Act
+            var result = promotionEngine.ApplyPromotions(
+                new List<Product>()
+                {
+                    new Product("A", 50),
+                    new Product("A", 50),
+                    new Product("A", 50)
+                });
+
+            // Assert
+            Assert.AreEqual(130, result);
         }
     }
 }
