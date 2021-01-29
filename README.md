@@ -12,13 +12,13 @@ The main logic PromotionEngine (implenting the IPromotionEngine) is under the na
 
 Instatiation:<br />
 Parameters:<br />
-    IPromotionRepository (the IPromotionRepository implementaion has to return Promotion instances for an input or Product instances)
+&nbsp;&nbsp;&nbsp;IPromotionRepository (the IPromotionRepository implementaion has to return Promotion instances for an input or Product instances)
 ```
 var promotionEngine = new PromotionEngine(promotionRepository);
 ```
 Usage:<br />
 Parameters:<br />
-    IEnumerable<Product><br />
+&nbsp;&nbsp;&nbsp;IEnumerable<Product><br />
 Returns: double (the discounted price part of the total cart price)<br />
 Example:<br />
 ```
@@ -33,8 +33,8 @@ var result = promotionEngine.ApplyPromotions(
 
 Promotion<br />
 Parameters:<br />
-    string sku<br />
-    double price<br />
+&nbsp;&nbsp;&nbsp;string sku<br />
+&nbsp;&nbsp;&nbsp;double price<br />
 Example:<br />
 ```
 new Product("A", 50)
@@ -42,8 +42,8 @@ new Product("A", 50)
 
 Promotion<br />
 Parameters:<br />
-    IDictionary<Product><br />
-    Rule<br />
+&nbsp;&nbsp;&nbsp;IDictionary<Product><br />
+&nbsp;&nbsp;&nbsp;Rule<br />
 Example:
 ```
 new Promotion(
@@ -56,7 +56,7 @@ new Promotion(
 
 Rule<br />
 Parameters:<br />
-    Operation<br />
+&nbsp;&nbsp;&nbsp;Operation<br />
 Example:<br />
 ```
 new Rule(Operation.Subtract, 20)
