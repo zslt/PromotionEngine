@@ -40,7 +40,7 @@ namespace PromotionEngine.Library.Tests
                 {
                     { new Product("A", 50), 1 }
                 },
-                new Rule(Operation.Multiply, 0.5));
+                new Rule(Operation.Multiply, (decimal)0.5));
 
             // Act
             var result = promotion.Apply(
