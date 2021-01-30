@@ -6,9 +6,9 @@ namespace PromotionEngine.Library.Model
     {
         public string Sku { get; }
 
-        public double Price { get; }
+        public decimal Price { get; }
 
-        public Product(string sku, double price)
+        public Product(string sku, decimal price)
         {
             Sku = sku ?? throw new ArgumentNullException(nameof(sku));
             Price = price;

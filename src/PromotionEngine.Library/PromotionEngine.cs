@@ -14,7 +14,7 @@ namespace PromotionEngine.Library
             this.promotionRepository = promtionRepositoy ?? throw new ArgumentNullException(nameof(promtionRepositoy));
         }
 
-        public double ApplyPromotions(IEnumerable<Product> products)
+        public decimal ApplyPromotions(IEnumerable<Product> products)
         {
             if (products is null)
             {

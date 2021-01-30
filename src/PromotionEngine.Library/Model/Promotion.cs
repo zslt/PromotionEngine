@@ -16,7 +16,7 @@ namespace PromotionEngine.Library.Model
             this.rule = rule ?? throw new ArgumentNullException(nameof(rule));
         }
 
-        internal double Apply(IList<DiscountableProduct> products)
+        internal decimal Apply(IList<DiscountableProduct> products)
         {
             if (products is null)
             {

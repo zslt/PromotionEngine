@@ -5,15 +5,15 @@ namespace PromotionEngine.Library.Model
     public class Rule
     {
         private readonly Operation operation;
-        private readonly double value;
+        private readonly decimal value;
 
-        public Rule(Operation operation, double value)
+        public Rule(Operation operation, decimal value)
         {
             this.operation = operation;
             this.value = value;
         }
 
-        internal double Apply(double amount, int applicatonNumber) => operation switch
+        internal decimal Apply(decimal amount, int applicatonNumber) => operation switch
         {
             Operation.Subtract => applicatonNumber * (amount - value),
             Operation.Multiply => applicatonNumber * (amount * value),

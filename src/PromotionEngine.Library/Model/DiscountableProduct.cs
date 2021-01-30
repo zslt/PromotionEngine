@@ -6,7 +6,7 @@ namespace PromotionEngine.Library.Model
     {
         public bool Discounted { get; set; }
 
-        public DiscountableProduct(string sku, double price, bool discounted = false) : base(sku, price)
+        public DiscountableProduct(string sku, decimal price, bool discounted = false) : base(sku, price)
         {
             Discounted = discounted;
         }

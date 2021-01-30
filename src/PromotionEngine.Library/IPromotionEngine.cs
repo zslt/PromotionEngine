@@ -6,6 +6,6 @@ namespace PromotionEngine.Library
 {
     public interface IPromotionEngine
     {
-        double ApplyPromotions(IEnumerable<Product> products);
+        decimal ApplyPromotions(IEnumerable<Product> products);
     }
 }

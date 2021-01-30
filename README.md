@@ -2,7 +2,7 @@
 
 # About
 
-This is a .NET 5.0 promotion enginge library.
+This is a .NET 5.0 promotion engine library.
 
 # Usage
 
@@ -19,7 +19,7 @@ var promotionEngine = new PromotionEngine(promotionRepository);
 Usage:<br />
 Parameters:<br />
 &nbsp;&nbsp;&nbsp;IEnumerable\<Product\><br />
-Returns: double (the discounted price part of the total cart price)<br />
+Returns: decimal (the discounted price part of the total cart price)<br />
 Example:<br />
 ```
 var result = promotionEngine.ApplyPromotions(
@@ -34,7 +34,7 @@ var result = promotionEngine.ApplyPromotions(
 Promotion<br />
 Parameters:<br />
 &nbsp;&nbsp;&nbsp;string sku<br />
-&nbsp;&nbsp;&nbsp;double price<br />
+&nbsp;&nbsp;&nbsp;decimal price<br />
 Example:<br />
 ```
 new Product("A", 50)
