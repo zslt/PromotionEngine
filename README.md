@@ -42,8 +42,8 @@ new Product("A", 50)
 
 Promotion<br />
 Parameters:<br />
-&nbsp;&nbsp;&nbsp;IDictionary\<Product\><br />
-&nbsp;&nbsp;&nbsp;Rule<br />
+&nbsp;&nbsp;&nbsp;IDictionary\<Product\> products<br />
+&nbsp;&nbsp;&nbsp;Rule rule<br />
 Example:
 ```
 new Promotion(
@@ -56,7 +56,8 @@ new Promotion(
 
 Rule<br />
 Parameters:<br />
-&nbsp;&nbsp;&nbsp;Operation<br />
+&nbsp;&nbsp;&nbsp;Operation operation<br />
+&nbsp;&nbsp;&nbsp;decimal value<br />
 Example:<br />
 ```
 new Rule(Operation.Subtract, 20)
