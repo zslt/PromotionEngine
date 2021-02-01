@@ -31,7 +31,7 @@ var result = promotionEngine.ApplyPromotions(
 
 ## Models
 
-Promotion<br />
+Product<br />
 Parameters:<br />
 &nbsp;&nbsp;&nbsp;string sku<br />
 &nbsp;&nbsp;&nbsp;decimal price<br />
